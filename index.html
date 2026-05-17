@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight Route Optimizer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<body>
+
+<div class="container">
+
+    <h1 class="title animate delay-1">
+        ✈ Flight Route Optimizer
+    </h1>
+
+    <!-- SEARCH -->
+
+    <div class="search-box animate delay-2">
+
+        <!-- FROM -->
+
+        <div class="input-group">
+
+            <label>From</label>
+
+            <div class="custom-select">
+
+                <div class="select-box">
+                    <span>Select Airport</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="options" id="fromOptions">
+
+                    <div class="option">Hyderabad (HYD)</div>
+                    <div class="option">Delhi (DEL)</div>
+                    <div class="option">Mumbai (BOM)</div>
+                    <div class="option">Bangalore (BLR)</div>
+                    <div class="option">Chennai (MAA)</div>
+                    <div class="option">Kolkata (CCU)</div>
+                    <div class="option">Ahmedabad (AMD)</div>
+                    <div class="option">Goa (GOI)</div>
+                    <div class="option">Pune (PNQ)</div>
+                    <div class="option">Kochi (COK)</div>
+
+                    <div class="option">Lucknow (LKO)</div>
+                    <div class="option">Jaipur (JAI)</div>
+                    <div class="option">Chandigarh (IXC)</div>
+                    <div class="option">Bhubaneswar (BBI)</div>
+                    <div class="option">Patna (PAT)</div>
+                    <div class="option">Guwahati (GAU)</div>
+                    <div class="option">Ranchi (IXR)</div>
+                    <div class="option">Nagpur (NAG)</div>
+                    <div class="option">Srinagar (SXR)</div>
+                    <div class="option">Thiruvananthapuram (TRV)</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TO -->
+
+        <div class="input-group">
+
+            <label>To</label>
+
+            <div class="custom-select">
+
+                <div class="select-box">
+                    <span>Select Airport</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="options" id="toOptions">
+
+                    <div class="option">Hyderabad (HYD)</div>
+                    <div class="option">Delhi (DEL)</div>
+                    <div class="option">Mumbai (BOM)</div>
+                    <div class="option">Bangalore (BLR)</div>
+                    <div class="option">Chennai (MAA)</div>
+                    <div class="option">Kolkata (CCU)</div>
+                    <div class="option">Ahmedabad (AMD)</div>
+                    <div class="option">Goa (GOI)</div>
+                    <div class="option">Pune (PNQ)</div>
+                    <div class="option">Kochi (COK)</div>
+
+                    <div class="option">Lucknow (LKO)</div>
+                    <div class="option">Jaipur (JAI)</div>
+                    <div class="option">Chandigarh (IXC)</div>
+                    <div class="option">Bhubaneswar (BBI)</div>
+                    <div class="option">Patna (PAT)</div>
+                    <div class="option">Guwahati (GAU)</div>
+                    <div class="option">Ranchi (IXR)</div>
+                    <div class="option">Nagpur (NAG)</div>
+                    <div class="option">Srinagar (SXR)</div>
+                    <div class="option">Thiruvananthapuram (TRV)</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PREFERENCE -->
+
+        <div class="input-group">
+
+            <label>Preference</label>
+
+            <div class="custom-select">
+
+                <div class="select-box">
+                    <span>Cheapest Route</span>
+                    <span class="arrow">⌄</span>
+                </div>
+
+                <div class="options">
+
+                    <div class="option">Cheapest Route</div>
+                    <div class="option">Fastest Route</div>
+                    <div class="option">Minimum Stops</div>
+                    <div class="option">Shortest Distance</div>
+                    <div class="option">Balanced Route</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="search-btn">
+            Find Route
+        </button>
+
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="main-section">
+
+        <!-- LEFT -->
+
+        <div class="card animate delay-3">
+
+            <h2 class="route-title">
+
+                <span class="route-path" id="bestRoute" style="text-align:center; width:100%; display:block;">
+                    Select airports to optimize route
+                </span>
+
+            </h2>
+
+            <div class="stats">
+
+                <div class="stat-box">
+                    <h3>Total Cost</h3>
+                    <p id="totalCost">--</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3>Total Time</h3>
+                    <p id="totalTime">--</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3>Layovers</h3>
+                    <p id="totalStops">--</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3>Distance</h3>
+                    <p id="totalDistance">--</p>
+                </div>
+
+            </div>
+
+            <!-- DYNAMIC ITINERARY -->
+
+            <div id="itineraryContainer">
+
+            </div>
+
+        </div>
+
+        <!-- MAP -->
+
+        <div class="map-box animate delay-4">
+
+            <div class="map-overlay">
+                Optimized Route Map
+            </div>
+
+            <div id="map"></div>
+
+        </div>
+
+    </div>
+
+    <!-- ALT ROUTES -->
+
+    <div class="animate delay-5">
+
+        <h2 class="alt-title">
+            Alternative Routes
+        </h2>
+
+        <div class="alt-routes">
+
+            <div class="alt-card">
+
+                <span class="badge green">
+                    Cheapest
+                </span>
+
+                <div class="alt-route">
+                    Route will appear here
+                </div>
+
+                <div class="alt-info">
+                    <span>--</span>
+                    <span>--</span>
+                </div>
+
+                <div class="price">
+                    --
+                </div>
+
+            </div>
+
+            <div class="alt-card">
+
+                <span class="badge blue">
+                    Fastest
+                </span>
+
+                <div class="alt-route">
+                    Route will appear here
+                </div>
+
+                <div class="alt-info">
+                    <span>--</span>
+                    <span>--</span>
+                </div>
+
+                <div class="price">
+                    --
+                </div>
+
+            </div>
+
+            <div class="alt-card">
+
+                <span class="badge orange">
+                    Minimum Stops
+                </span>
+
+                <div class="alt-route">
+                    Route will appear here
+                </div>
+
+                <div class="alt-info">
+                    <span>--</span>
+                    <span>--</span>
+                </div>
+
+                <div class="price">
+                    --
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer class="footer animate delay-5">
+
+    <div class="footer-content">
+
+        <div class="footer-left">
+
+            <h2>✈ Flight Route Optimizer</h2>
+
+            <p>
+                Intelligent flight route optimization system
+                using graph algorithms and shortest path analysis.
+            </p>
+
+        </div>
+
+        <div class="footer-links">
+
+            <div class="footer-column">
+
+                <h3>Features</h3>
+
+                <a href="https://leetcode.com/problems/cheapest-flights-within-k-stops/">Cheapest Route</a>
+                <a href="https://www.geeksforgeeks.org/dsa/traveling-salesman-problem-tsp-implementation/">Fastest Route</a>
+                <a href="https://leetcode.com/problems/minimum-number-of-refueling-stops/description/">Minimum Stops</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Algorithms</h3>
+
+                <a href="https://www.geeksforgeeks.org/dsa/dijkstras-shortest-path-algorithm-greedy-algo-7/">Dijkstra</a>
+                <a href="https://www.geeksforgeeks.org/dsa/breadth-first-search-or-bfs-for-a-graph/">BFS</a>
+                <a href="https://www.geeksforgeeks.org/dsa/graph-theory-tutorial/">Graph Theory</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Project</h3>
+
+                <a href="#footer-content">About</a>
+                <a href="https://github.com/harshavardhanBOMMALATA/FlightRouteOptimization.git">Documentation</a>
+                <a href="https://www.linkedin.com/in/harshavardhan-bommalata-7bb9442b0/">Contact</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Flight Route Optimizer • Developed for DSA Project
+    </div>
+
+</footer>
+
+<script src="FlightRouteOptimizer.js"></script>
+
+</body>
+</html>
