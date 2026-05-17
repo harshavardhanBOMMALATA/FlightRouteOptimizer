@@ -361,19 +361,19 @@ Stops: 1
 
 ## Home Page
 
-(Add Screenshot Here)
+![Home Page](home.png)
 
 ---
 
 ## Route Optimization Result
 
-(Add Screenshot Here)
+![Route Optimization](features.png)
 
 ---
 
 ## Interactive Route Map
 
-(Add Screenshot Here)
+![Map](map.png)
 
 ---
 
