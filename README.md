@@ -377,6 +377,40 @@ Stops: 1
 
 ---
 
+# ▶ How to Run the Project
+
+1. Clone the repository:
+
+```bash id="j8m2qx"
+git clone <https://github.com/harshavardhanBOMMALATA/FlightRouteOptimizer.git>
+```
+
+2. Open the project folder:
+
+```bash id="p4k7mw"
+cd flight-route-optimization
+```
+
+3. Open the folder in VS Code.
+
+4. Install the Live Server extension in VS Code.
+
+5. Right click on:
+
+```text id="n5v1zt"
+index.html
+```
+
+and select:
+
+```text id="r7x3qp"
+Open with Live Server
+```
+
+6. The project will open automatically in your browser.
+
+---
+
 # 🎯 Conclusion
 
 Flight Route Optimization shows how DSA and graph algorithms can solve real-world travel problems.
@@ -401,9 +435,3 @@ Harshavardhan
 * Gmail: [hbommalata@gmail.com](mailto:hbommalata@gmail.com)
 * Instagram: [always_harsha_royal Instagram](https://www.instagram.com/always_harsha_royal/?hl=en&utm_source=chatgpt.com)
 
----
-
-# 📌 Footer
-
-Flight Route Optimization © 2026
-Developed using DSA, Graph Algorithms, JavaScript, and Leaflet.js.
