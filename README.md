@@ -388,7 +388,7 @@ git clone <https://github.com/harshavardhanBOMMALATA/FlightRouteOptimizer.git>
 2. Open the project folder:
 
 ```bash id="p4k7mw"
-cd flight-route-optimization
+cd FlightRouteOptimization
 ```
 
 3. Open the folder in VS Code.
